@@ -11,27 +11,21 @@ using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
 
 var svg = document.Root;
 
-int width = (int)svg.Attribute("width");
-int height = (int)svg.Attribute("height");
-
 if (svg.Attribute("viewBox") is null)
 {
-    width = (int)svg.Attribute("width");
-    height = (int)svg.Attribute("height");
+    var width = (int)svg.Attribute("width");
+    var height = (int)svg.Attribute("height");
     svg.SetAttributeValue("viewBox", $"0 0 {width} {height}");
 }
 
-Console.WriteLine($"Width: {width}");
-Console.WriteLine($"Height: {height}");
+Console.WriteLine($"Width: {(string)svg.Attribute("width")}");
+Console.WriteLine($"Height: {(string)svg.Attribute("height")}");
 
 Console.Write($"Change Width To: ");
-width = int.Parse(Console.ReadLine());
+svg.SetAttributeValue("width", Console.ReadLine());
 
 Console.Write($"Change Height To: ");
-height = int.Parse(Console.ReadLine());
-
-svg.SetAttributeValue("width", width);
-svg.SetAttributeValue("height", height);
+svg.SetAttributeValue("height", Console.ReadLine());
 
 Console.Write("Save To: ");
 path = Console.ReadLine();
